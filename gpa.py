@@ -31,8 +31,6 @@ class NJU_grade_spider:
 	def nju_init(self):
 		self.stu_num = input('请输入学号：')
 		self.stu_pwd = input('请输入密码：')
-		# self.stu_num = '141170028'
-		# self.stu_pwd = '830317'
 		self.post_login_data = urllib.parse.urlencode({'userName':self.stu_num,'password':self.stu_pwd,})
 		login_request = urllib.request.Request( url = self.loginUrl, data = self.post_login_data.encode("utf-8") )
 		login_result = self.opener.open(login_request)
