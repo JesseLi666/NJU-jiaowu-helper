@@ -21,8 +21,8 @@ from bs4 import BeautifulSoup
 
 class NJU_grade_spider:
 	def __init__(self):
-		self.loginUrl = 'http://jwas2.nju.edu.cn:8080/jiaowu/login.do'
-		self.gradeUrl = 'http://jwas2.nju.edu.cn:8080/jiaowu/student/studentinfo/achievementinfo.do?method=searchTermList'
+		self.loginUrl = 'http://jw.nju.edu.cn:8080/jiaowu/login.do'
+		self.gradeUrl = 'http://jw.nju.edu.cn:8080/jiaowu/student/studentinfo/achievementinfo.do?method=searchTermList'
 		self.cookie = http.cookiejar.CookieJar()    
 		self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookie))
 		self.total_grade_all = 0
@@ -31,6 +31,8 @@ class NJU_grade_spider:
 	def nju_init(self):
 		self.stu_num = input('请输入学号：')
 		self.stu_pwd = input('请输入密码：')
+		# self.stu_num = '141170028'
+		# self.stu_pwd = '830317'
 		self.post_login_data = urllib.parse.urlencode({'userName':self.stu_num,'password':self.stu_pwd,})
 		login_request = urllib.request.Request( url = self.loginUrl, data = self.post_login_data.encode("utf-8") )
 		login_result = self.opener.open(login_request)
@@ -39,7 +41,7 @@ class NJU_grade_spider:
 		# term = 0
 		if term == 0:
 			total_term = (16-age)*2
-			for i in range(1,total_term+1):
+			for i in range(1,total_term+2):
 				self.get_grade(age,i)
 			self.get_total_gpa(total_term)
 		else:
